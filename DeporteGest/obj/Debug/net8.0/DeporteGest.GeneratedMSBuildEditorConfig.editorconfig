@@ -1,0 +1,115 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = DeporteGest
+build_property.RootNamespace = DeporteGest
+build_property.ProjectDir = /mnt/volumen/sebas/Programas/evaluacion/DeporteGest/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /mnt/volumen/sebas/Programas/evaluacion/DeporteGest
+build_property._RazorSourceGeneratorDebug = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Eventos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXZlbnRvcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Eventos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXZlbnRvcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Eventos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXZlbnRvcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Eventos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXZlbnRvcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Eventos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXZlbnRvcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Inscripcione/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zY3JpcGNpb25lL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Inscripcione/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zY3JpcGNpb25lL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Inscripcione/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zY3JpcGNpb25lL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Inscripcione/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zY3JpcGNpb25lL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Inscripcione/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zY3JpcGNpb25lL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Participantes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGFydGljaXBhbnRlcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Participantes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGFydGljaXBhbnRlcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Participantes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGFydGljaXBhbnRlcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Participantes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGFydGljaXBhbnRlcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Participantes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGFydGljaXBhbnRlcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-ynsmv27tep
