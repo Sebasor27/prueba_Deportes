@@ -236,6 +236,7 @@
 /mnt/volumen/sebas/Programas/evaluacion/DeporteGest/obj/Debug/net8.0/DeporteGest.MvcApplicationPartsAssemblyInfo.cache
 /mnt/volumen/sebas/Programas/evaluacion/DeporteGest/obj/Debug/net8.0/DeporteGest.RazorAssemblyInfo.cache
 /mnt/volumen/sebas/Programas/evaluacion/DeporteGest/obj/Debug/net8.0/DeporteGest.RazorAssemblyInfo.cs
+/mnt/volumen/sebas/Programas/evaluacion/DeporteGest/obj/Debug/net8.0/DeporteGest.sourcelink.json
 /mnt/volumen/sebas/Programas/evaluacion/DeporteGest/obj/Debug/net8.0/staticwebassets.build.json
 /mnt/volumen/sebas/Programas/evaluacion/DeporteGest/obj/Debug/net8.0/staticwebassets.development.json
 /mnt/volumen/sebas/Programas/evaluacion/DeporteGest/obj/Debug/net8.0/staticwebassets/msbuild.DeporteGest.Microsoft.AspNetCore.StaticWebAssets.props

@@ -8,6 +8,14 @@ builder.Services.AddDbContext<SportContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("YourConnectionString"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("YourConnectionString")))
 );
 
+builder.Services.AddDistributedMemoryCache(); // Necesario para que funcione la sesión
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Define el tiempo de espera para la sesión
+    options.Cookie.HttpOnly = true; // Seguridad
+    options.Cookie.IsEssential = true; // Necesario para cumplir con ciertas políticas de cookies
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -25,6 +33,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

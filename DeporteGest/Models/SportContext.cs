@@ -21,6 +21,7 @@ public partial class SportContext : DbContext
     public virtual DbSet<Inscripcione> Inscripciones { get; set; }
 
     public virtual DbSet<Participante> Participantes { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -104,6 +105,27 @@ public partial class SportContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("telefono");
         });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.Email).IsUnique(); 
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("Id");
+            entity.Property(e => e.Username)
+                .HasMaxLength(100)
+                .HasColumnName("Username");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .HasColumnName("Email");
+            entity.Property(e => e.PasswordHash)
+                .HasMaxLength(255)
+                .HasColumnName("PasswordHash");
+       });
+
 
         OnModelCreatingPartial(modelBuilder);
     }

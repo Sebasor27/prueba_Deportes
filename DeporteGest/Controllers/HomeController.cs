@@ -15,7 +15,15 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        string username = HttpContext.Session.GetString("Username") ?? string.Empty;
+      ViewData["Username"] = username;  // Pasar el valor de la sesión a la vista
+
+    if (string.IsNullOrEmpty(username))
+    {
+        return RedirectToAction("Login", "Users");
+    }
+
+    return View();
     }
 
     public IActionResult Privacy()

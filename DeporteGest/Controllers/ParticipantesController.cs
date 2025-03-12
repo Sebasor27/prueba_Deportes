@@ -21,6 +21,13 @@ namespace DeporteGest.Controllers
         // GET: Participantes
         public async Task<IActionResult> Index()
         {
+            string username = HttpContext.Session.GetString("Username") ?? string.Empty;
+      ViewData["Username"] = username;  // Pasar el valor de la sesión a la vista
+
+    if (string.IsNullOrEmpty(username))
+    {
+        return RedirectToAction("Login", "Users");
+    }
             return View(await _context.Participantes.ToListAsync());
         }
 

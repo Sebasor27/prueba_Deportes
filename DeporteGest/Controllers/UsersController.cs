@@ -6,32 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeporteGest.Models;
+using System.Security.Cryptography;
+using System.Text;
+
 
 namespace DeporteGest.Controllers
 {
-    public class EventosController : Controller
+    public class UsersController : Controller
     {
         private readonly SportContext _context;
 
-        public EventosController(SportContext context)
+        public UsersController(SportContext context)
         {
             _context = context;
         }
 
-        // GET: Eventos
+        // GET: Users
         public async Task<IActionResult> Index()
         {
-            string username = HttpContext.Session.GetString("Username") ?? string.Empty;
-      ViewData["Username"] = username;  // Pasar el valor de la sesión a la vista
-
-    if (string.IsNullOrEmpty(username))
-    {
-        return RedirectToAction("Login", "Users");
-    }
-            return View(await _context.Eventos.ToListAsync());
+            return View(await _context.Users.ToListAsync());
         }
 
-        // GET: Eventos/Details/5
+        // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,39 +35,39 @@ namespace DeporteGest.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Eventos
-                .FirstOrDefaultAsync(m => m.EventoId == id);
-            if (evento == null)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(user);
         }
 
-        // GET: Eventos/Create
+        // GET: Users/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Eventos/Create
+        // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventoId,Nombre,Fecha,Ubicacion,Descripcion")] Evento evento)
+        public async Task<IActionResult> Create([Bind("Id,Username,Email,PasswordHash")] User user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(evento);
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(evento);
+            return View(user);
         }
 
-        // GET: Eventos/Edit/5
+        // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,22 +75,22 @@ namespace DeporteGest.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Eventos.FindAsync(id);
-            if (evento == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(evento);
+            return View(user);
         }
 
-        // POST: Eventos/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventoId,Nombre,Fecha,Ubicacion,Descripcion")] Evento evento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Email,PasswordHash")] User user)
         {
-            if (id != evento.EventoId)
+            if (id != user.Id)
             {
                 return NotFound();
             }
@@ -103,12 +99,12 @@ namespace DeporteGest.Controllers
             {
                 try
                 {
-                    _context.Update(evento);
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventoExists(evento.EventoId))
+                    if (!UserExists(user.Id))
                     {
                         return NotFound();
                     }
@@ -119,10 +115,10 @@ namespace DeporteGest.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(evento);
+            return View(user);
         }
 
-        // GET: Eventos/Delete/5
+        // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,34 +126,56 @@ namespace DeporteGest.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Eventos
-                .FirstOrDefaultAsync(m => m.EventoId == id);
-            if (evento == null)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(user);
         }
 
-        // POST: Eventos/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var evento = await _context.Eventos.FindAsync(id);
-            if (evento != null)
+            var user = await _context.Users.FindAsync(id);
+            if (user != null)
             {
-                _context.Eventos.Remove(evento);
+                _context.Users.Remove(user);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+public IActionResult Login()
+{
+    return View();
+}
 
-        private bool EventoExists(int id)
+        private bool UserExists(int id)
         {
-            return _context.Eventos.Any(e => e.EventoId == id);
+            return _context.Users.Any(e => e.Id == id);
         }
-    }
+        [HttpPost]
+        public async Task<IActionResult> Login([Bind("Username,PasswordHash")] User user)
+        {
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
+
+            if (existingUser == null || existingUser.PasswordHash != user.PasswordHash)
+            {
+                ViewBag.Error = "Credenciales incorrectas";
+                return View();
+            }
+
+            // Guardar sesión (puedes mejorar esto con JWT o Identity)
+            HttpContext.Session.SetString("Username", existingUser.Username);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+}
 }
