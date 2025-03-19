@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeporteGest.Models;
+using DeporteGest.DTOs;
 
 namespace DeporteGest.Controllers
 {
@@ -21,15 +22,15 @@ namespace DeporteGest.Controllers
         // GET: Inscripcione
         public async Task<IActionResult> Index()
         {
-        var sportContext = _context.Inscripciones.Include(i => i.Evento).Include(i => i.Participante);
-     
-            string username = HttpContext.Session.GetString("Username") ?? string.Empty;
-      ViewData["Username"] = username;  // Pasar el valor de la sesión a la vista
+            var sportContext = _context.Inscripciones.Include(i => i.Evento).Include(i => i.Participante);
 
-    if (string.IsNullOrEmpty(username))
-    {
-        return RedirectToAction("Login", "Users");
-    }
+            string username = HttpContext.Session.GetString("Username") ?? string.Empty;
+            ViewData["Username"] = username;  // Pasar el valor de la sesión a la vista
+
+            if (string.IsNullOrEmpty(username))
+            {
+                return RedirectToAction("Login", "Users");
+            }
             return View(await sportContext.ToListAsync());
         }
 
@@ -175,5 +176,36 @@ namespace DeporteGest.Controllers
         {
             return _context.Inscripciones.Any(e => e.InscripcionId == id);
         }
+
+        [HttpGet("api/inscripciones")]
+        public async Task<ActionResult<IEnumerable<InscripcionDTO>>> GetInscripcionesJson()
+        {
+            var inscripciones = await _context.Inscripciones
+                .Include(i => i.Evento)
+                .Include(i => i.Participante)
+                .Select(i => new InscripcionDTO
+                {
+                    InscripcionId = i.InscripcionId,
+                    FechaInscripcion = i.FechaInscripcion,
+
+                    // Datos del Evento
+                    EventoId = i.Evento != null ? i.Evento.EventoId : 0,
+                    NombreEvento = i.Evento != null ? i.Evento.Nombre : "Desconocido",
+                    FechaEvento = i.Evento != null ? i.Evento.Fecha : DateOnly.MinValue,
+                    UbicacionEvento = i.Evento != null ? i.Evento.Ubicacion : "Desconocido",
+
+                    // Datos del Participante
+                    ParticipanteId = i.Participante != null ? i.Participante.ParticipanteId : 0,
+                    NombreParticipante = i.Participante != null ? i.Participante.Nombre : "Desconocido",
+                    ApellidoParticipante = i.Participante != null ? i.Participante.Apellido : "Desconocido",
+                    EmailParticipante = i.Participante != null ? i.Participante.Email : "sin-email@example.com"
+                })
+                .ToListAsync();
+
+            return Ok(inscripciones);
+        }
+
     }
+
+
 }

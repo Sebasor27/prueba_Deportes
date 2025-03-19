@@ -9,39 +9,49 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table" id="inscripcionesTable">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaInscripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Evento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Participante)
-            </th>
+            <th>Fecha Inscripción</th>
+            <th>Evento</th>
+            <th>Participante</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaInscripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Evento.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Participante.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.InscripcionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.InscripcionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.InscripcionId">Delete</a>
-            </td>
-        </tr>
-}
+        <!-- Las filas se llenarán dinámicamente con JavaScript -->
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '/api/inscripciones',
+                method: 'GET',
+                success: function(data) {
+                    var tbody = $('#inscripcionesTable tbody');
+                    tbody.empty(); 
+
+                    data.forEach(function(inscripcion) {
+                        var row = `<tr>
+                            <td>${inscripcion.fechaInscripcion}</td>
+                            <td>${inscripcion.nombreEvento}</td>
+                            <td>${inscripcion.nombreParticipante} ${inscripcion.apellidoParticipante}</td>
+                            <td>
+                                <a href="/Inscripciones/Edit/${inscripcion.inscripcionId}">Edit</a> |
+                                <a href="/Inscripciones/Details/${inscripcion.inscripcionId}">Details</a> |
+                                <a href="/Inscripciones/Delete/${inscripcion.inscripcionId}">Delete</a>
+                            </td>
+                        </tr>`;
+                        tbody.append(row);
+                    });
+                },
+                error: function(error) {
+                    console.error('Error al obtener las inscripciones:', error);
+                }
+            });
+        });
+    </script>
+}

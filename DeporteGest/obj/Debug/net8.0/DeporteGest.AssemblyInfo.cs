@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DeporteGest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50437e9f092be997ee238ead01b08b1a73887479")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e09ba5b115b7d8b7fd6bb3d2be5d67416f28319e")]
 [assembly: System.Reflection.AssemblyProductAttribute("DeporteGest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DeporteGest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
