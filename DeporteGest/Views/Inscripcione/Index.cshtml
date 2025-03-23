@@ -9,6 +9,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<!-- Campo de búsqueda -->
+<div class="form-group">
+    <input type="text" id="searchInput" class="form-control" placeholder="Buscar por nombre..." />
+    <button id="searchButton" class="btn btn-primary">Buscar</button>
+</div>
+
+<!-- Tabla de inscripciones -->
 <table class="table" id="inscripcionesTable">
     <thead>
         <tr>
@@ -23,34 +31,88 @@
     </tbody>
 </table>
 
+<div class="modal fade" id="eventosModal" tabindex="-1" aria-labelledby="eventosModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventosModalLabel">Eventos del Participante</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
-            $.ajax({
-                url: '/api/inscripciones',
-                method: 'GET',
-                success: function(data) {
-                    var tbody = $('#inscripcionesTable tbody');
-                    tbody.empty(); 
+            function loadInscripciones(searchTerm = '') {
+                $.ajax({
+                    url: '/api/inscripciones',
+                    method: 'GET',
+                    data: { search: searchTerm },
+                    success: function(data) {
+                        var tbody = $('#inscripcionesTable tbody');
+                        tbody.empty();
 
-                    data.forEach(function(inscripcion) {
-                        var row = `<tr>
-                            <td>${inscripcion.fechaInscripcion}</td>
-                            <td>${inscripcion.nombreEvento}</td>
-                            <td>${inscripcion.nombreParticipante} ${inscripcion.apellidoParticipante}</td>
-                            <td>
-                                <a href="/Inscripciones/Edit/${inscripcion.inscripcionId}">Edit</a> |
-                                <a href="/Inscripciones/Details/${inscripcion.inscripcionId}">Details</a> |
-                                <a href="/Inscripciones/Delete/${inscripcion.inscripcionId}">Delete</a>
-                            </td>
-                        </tr>`;
-                        tbody.append(row);
-                    });
-                },
-                error: function(error) {
-                    console.error('Error al obtener las inscripciones:', error);
-                }
+                        data.forEach(function(inscripcion) {
+                            var row = `<tr>
+                                <td>${inscripcion.fechaInscripcion}</td>
+                                <td>${inscripcion.nombreEvento}</td>
+                                <td>${inscripcion.nombreParticipante} ${inscripcion.apellidoParticipante}</td>
+                                <td>
+                                    <a href="/Inscripciones/Edit/${inscripcion.inscripcionId}">Edit</a> |
+                                    <a href="/Inscripciones/Details/${inscripcion.inscripcionId}">Details</a> |
+                                    <a href="/Inscripciones/Delete/${inscripcion.inscripcionId}">Delete</a>
+                                </td>
+                            </tr>`;
+                            tbody.append(row);
+                        });
+                    },
+                    error: function(error) {
+                        console.error('Error al obtener las inscripciones:', error);
+                    }
+                });
+            }
+
+            loadInscripciones();
+
+            $('#searchInput').on('input', function() {
+                var searchTerm = $(this).val();
+                loadInscripciones(searchTerm);
+            });
+
+            $('#searchButton').on('click', function() {
+                var searchTerm = $('#searchInput').val();
+                $.ajax({
+                    url: '/api/inscripciones/eventos',
+                    method: 'GET',
+                    data: { search: searchTerm },
+                    success: function(data) {
+                        var modalBody = $('#modalBody');
+                        modalBody.empty();
+
+                        if (data.length > 0) {
+                            data.forEach(function(evento) {
+                                var eventoInfo = `<p>${evento.nombreEvento} - ${evento.fechaEvento}</p>`;
+                                modalBody.append(eventoInfo);
+                            });
+                        } else {
+                            modalBody.append('<p>No se encontraron eventos para este participante.</p>');
+                        }
+
+                        $('#eventosModal').modal('show');
+                    },
+                    error: function(error) {
+                        console.error('Error al obtener los eventos:', error);
+                    }
+                });
             });
         });
     </script>

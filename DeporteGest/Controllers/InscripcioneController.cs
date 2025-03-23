@@ -178,23 +178,23 @@ namespace DeporteGest.Controllers
         }
 
         [HttpGet("api/inscripciones")]
-        public async Task<ActionResult<IEnumerable<InscripcionDTO>>> GetInscripcionesJson()
+        public async Task<ActionResult<IEnumerable<InscripcionDTO>>> GetInscripcionesJson(string search = "")
         {
             var inscripciones = await _context.Inscripciones
                 .Include(i => i.Evento)
                 .Include(i => i.Participante)
+                .Where(i => string.IsNullOrEmpty(search) || (i.Participante != null && (i.Participante.Nombre.Contains(search) || i.Participante.Apellido.Contains(search))))
                 .Select(i => new InscripcionDTO
                 {
                     InscripcionId = i.InscripcionId,
                     FechaInscripcion = i.FechaInscripcion,
 
-                    // Datos del Evento
+                    
                     EventoId = i.Evento != null ? i.Evento.EventoId : 0,
                     NombreEvento = i.Evento != null ? i.Evento.Nombre : "Desconocido",
                     FechaEvento = i.Evento != null ? i.Evento.Fecha : DateOnly.MinValue,
                     UbicacionEvento = i.Evento != null ? i.Evento.Ubicacion : "Desconocido",
 
-                    // Datos del Participante
                     ParticipanteId = i.Participante != null ? i.Participante.ParticipanteId : 0,
                     NombreParticipante = i.Participante != null ? i.Participante.Nombre : "Desconocido",
                     ApellidoParticipante = i.Participante != null ? i.Participante.Apellido : "Desconocido",
@@ -203,6 +203,26 @@ namespace DeporteGest.Controllers
                 .ToListAsync();
 
             return Ok(inscripciones);
+        }
+
+        [HttpGet("api/inscripciones/eventos")]
+        public async Task<ActionResult<IEnumerable<EventoDTO>>> GetEventosByParticipante(string search = "")
+        {
+            var eventos = await _context.Inscripciones
+                .Include(i => i.Evento)
+                .Include(i => i.Participante)
+                .Where(i => (i.Participante.Nombre.Contains(search) || i.Participante.Apellido.Contains(search)) && i.Evento != null)
+                .Select(i => new EventoDTO
+                {
+                    EventoId = i.Evento.EventoId,
+                    NombreEvento = i.Evento.Nombre,
+                    FechaEvento = i.Evento.Fecha,
+                    UbicacionEvento = i.Evento.Ubicacion
+                })
+                .Distinct()
+                .ToListAsync();
+
+            return Ok(eventos);
         }
 
     }
